@@ -95,10 +95,6 @@ jobs:
             cd backend
             npm install
             npm audit fix --audit-level=critical --force
-            npm update js-yaml --depth 4
-            npm update minimist --depth 4
-            npm update loader-utils --depth 2
-            npm update json5 --depth 3
             npm install passport-jwt@4.0.1
             npm update path-parse --depth 3
             npm update mkdirp --depth 2
