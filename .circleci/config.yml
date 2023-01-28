@@ -36,8 +36,9 @@ commands:
       - run:
           name: Install AWS CLI
           command: |
-            apt-get install -y python3-pip
-            pip3 install awscli
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
 
   install_ansible:
     description: Install Ansible
@@ -209,8 +210,17 @@ jobs:
           fingerprints: ["41:d6:55:0e:ea:d7:fc:c6:96:a2:61:e2:d1:16:b2:af"]
       - attach_workspace:
           at: ~/
-      - install_awscli
-      - install_nodejs
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y python-pip
+            pip install --upgrade --user awscli
+            curl -sL https://deb.nodesource.com/setup_14.x | bash -
+            apt-get install -y nodejs
+
+      # - install_awscli
+      # - install_nodejs
 
       - run:
           name: configure server
@@ -248,8 +258,19 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/
-      - install_ansible
-      - install_awscli
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y python-pip
+            pip install --upgrade --user awscli
+            curl -sL https://deb.nodesource.com/setup_14.x | bash -
+            apt-get install -y nodejs
+            sudo yum install ansible -y
+
+
+      # - install_ansible
+      # - install_awscli
       - run:
           name: Get backend URL
           command: |
@@ -287,7 +308,9 @@ jobs:
           name: Install dependencies
           command: |
             yum install -y tar gzip
-      - install_ansible
+            sudo yum install ansible -y
+            
+      # - install_ansible
       - run:
           name: Deploy backend
           command: |
