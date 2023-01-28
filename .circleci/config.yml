@@ -266,7 +266,7 @@ jobs:
             pip install --upgrade --user awscli
             curl -sL https://deb.nodesource.com/setup_14.x | bash -
             apt-get install -y nodejs
-            sudo yum install ansible -y
+            yum install ansible -y
 
 
       # - install_ansible
@@ -308,7 +308,7 @@ jobs:
           name: Install dependencies
           command: |
             yum install -y tar gzip
-            sudo yum install ansible -y
+            yum install ansible -y
             
       # - install_ansible
       - run:
