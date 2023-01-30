@@ -208,17 +208,9 @@ jobs:
           fingerprints: ["41:d6:55:0e:ea:d7:fc:c6:96:a2:61:e2:d1:16:b2:af"]
       - attach_workspace:
           at: ~/
-      - run:
-          name: Install dependencies
-          command: |
-            # sudo apt-get update
-            # sudo apt-get install -y python-pip
-            # pip install --upgrade --user awscli
-            # curl -sL https://deb.nodesource.com/setup_14.x | bash -
-            # apt-get install -y nodejs
-
       - install_awscli
       - install_nodejs
+      - install_ansible
 
       - run:
           name: configure server
@@ -251,24 +243,14 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: cimg/python:3.10
     steps:
       - checkout
       - attach_workspace:
           at: ~/
-      - run:
-          name: Install dependencies
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y python-pip
-            pip install --upgrade --user awscli
-            curl -sL https://deb.nodesource.com/setup_14.x | bash -
-            apt-get install -y nodejs
-            yum install ansible -y
-
-
-      # - install_ansible
-      # - install_awscli
+      - install_ansible
+      - install_awscli
+      - install_nodejs
       - run:
           name: Get backend URL
           command: |
