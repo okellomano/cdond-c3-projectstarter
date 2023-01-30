@@ -201,7 +201,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: cimg/python:3.10
     steps:
       - checkout
       - add_ssh_keys:
@@ -216,10 +216,9 @@ jobs:
             # pip install --upgrade --user awscli
             # curl -sL https://deb.nodesource.com/setup_14.x | bash -
             # apt-get install -y nodejs
-            apk add --update --no-cache tar gzip nodejs npm aws-cli ansible
 
-      # - install_awscli
-      # - install_nodejs
+      - install_awscli
+      - install_nodejs
 
       - run:
           name: configure server
