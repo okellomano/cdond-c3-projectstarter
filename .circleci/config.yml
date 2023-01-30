@@ -54,10 +54,8 @@ commands:
       - run:
           name: Install Node.js 13.8.0
           command: |
-            # Install Node.js LTS version as our base Node.js version
             curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
             sudo apt install -y nodejs
-            # Use n version manager to use Node.js v13.8.0
             sudo npm install --global n
             sudo n 13.8.0
 
@@ -213,8 +211,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apt-get update
-            apt-get install -y python-pip
+            sudo apt-get update
+            sudo apt-get install -y python-pip
             pip install --upgrade --user awscli
             curl -sL https://deb.nodesource.com/setup_14.x | bash -
             apt-get install -y nodejs
@@ -253,7 +251,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       - attach_workspace:
@@ -261,8 +259,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apt-get update
-            apt-get install -y python-pip
+            sudo apt-get update
+            sudo apt-get install -y python-pip
             pip install --upgrade --user awscli
             curl -sL https://deb.nodesource.com/setup_14.x | bash -
             apt-get install -y nodejs
