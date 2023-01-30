@@ -211,11 +211,12 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            sudo apt-get update
-            sudo apt-get install -y python-pip
-            pip install --upgrade --user awscli
-            curl -sL https://deb.nodesource.com/setup_14.x | bash -
-            apt-get install -y nodejs
+            # sudo apt-get update
+            # sudo apt-get install -y python-pip
+            # pip install --upgrade --user awscli
+            # curl -sL https://deb.nodesource.com/setup_14.x | bash -
+            # apt-get install -y nodejs
+            apk add --update --no-cache tar gzip nodejs npm aws-cli ansible
 
       # - install_awscli
       # - install_nodejs
