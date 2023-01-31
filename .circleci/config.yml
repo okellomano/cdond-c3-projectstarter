@@ -335,8 +335,12 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - install_ansible
-      - install_nodejs         
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update --no-cache tar gzip nodejs npm aws-cli ansible curl
+      # - install_ansible
+      # - install_nodejs         
       - run:
           name: Backend smoke test
           command: |
