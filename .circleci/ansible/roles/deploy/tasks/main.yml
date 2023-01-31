@@ -1,10 +1,11 @@
 ---
-- name: Update
+- name: "Update"
   become: true
   apt:
     update_cache: yes
     cache_valid_time: 86400
-- name: remove unneeded deps
+
+- name: "remove unneeded dependencies"
   become: true
   apt:
     autoremove: yes
@@ -14,16 +15,39 @@
   apt:
     upgrade: yes
 
-- name: extract artifact
+- name: "Install dependencies(nodejs and npm"
   become: true
-  unarchive:
-    src: "files/artifact.tar.gz"
-    dest: .
+  apt:
+    name: ["nodejs", "npm"]
+    state: latest
+    update_cache: yes
+
+- name: "Install npm2"
+  become: true
+  npm:
+    name:  pm2
+    global: yes
+    production: yes
+    state: present
+
+- name: "Create Backend app directory"
+  file:
+    path: ~/backend_app_dir
+    state: directory
+
+- name: "Copy artifact into instance"
+  become: true
+  copy:
+    src: ~/project/artifact.tar.gz
+    dest: /home/ubuntu/backend_app_dir/artifact.tar.gz
 
 - name: "Start application"
   become: true
   shell: |
+    cd /home/ubuntu/backend_app_dir
+    tar -xvzf artifact.tar.gz
     npm install
-    pm2 stop default
+    npm run build
+    pm2 stop all
     pm2 start npm -- start
 
