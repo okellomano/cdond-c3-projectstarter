@@ -272,8 +272,8 @@ jobs:
             cd frontend
             npm install
             npm run build
-            tar -czvf artifact-"usikusako".tar.gz dist
-            aws s3 cp dist s3://udapeople-usikusako --recursive
+            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
 
       - destroy-environment
       - revert-migrations
@@ -316,8 +316,6 @@ jobs:
             echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> '.env'
             echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> '.env'
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> '.env'
-
-
 
             npm install
             npm run build
