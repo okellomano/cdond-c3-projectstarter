@@ -30,22 +30,27 @@
     production: yes
     state: present
 
-- name: "Create Backend app directory"
-  file:
-    path: ~/backend_app_dir
-    state: directory
+# - name: "Create Backend app directory"
+#   file:
+#     path: ~/backend_app_dir
+#     state: directory
 
-- name: "Copy artifact into instance"
+# - name: "Copy artifact into instance"
+#   become: true
+#   copy:
+#     src: ~/project/artifact.tar.gz
+#     dest: /home/ubuntu/backend_app_dir/artifact.tar.gz
+- name: Unarchive files
   become: true
-  copy:
-    src: ~/project/artifact.tar.gz
-    dest: /home/ubuntu/backend_app_dir/artifact.tar.gz
+  unarchive:
+    src: "files/artifact.tar.gz"
+    dest: .
 
 - name: "Start application"
   become: true
   shell: |
-    cd /home/ubuntu/backend_app_dir
-    tar -xvzf artifact.tar.gz
+    # cd /home/ubuntu/backend_app_dir
+    # tar -xvzf artifact.tar.gz
     npm install
     npm run build
     pm2 stop all
