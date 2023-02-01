@@ -424,7 +424,7 @@ jobs:
             echo Stack names: "${STACKS[@]}"
             echo $OldWorkflowID ${CIRCLE_WORKFLOW_ID:0:7}
 
-            # for (( index=0; index<${#STACKS[@]}; index+=2 )) 
+            for (( index=0; index<${#STACKS[@]}; index+=2 )) 
             do
               if [[ "${CIRCLE_WORKFLOW_ID:0:7}" =~ "${OldWorkflowID}" ]]
               then
