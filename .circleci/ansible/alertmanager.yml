@@ -1,0 +1,14 @@
+route:
+  group_by: [Alertname]
+  receiver: email-me
+
+receivers:
+- name: email-me
+  email_configs:
+  - to: multroot@gmail.com
+    from: multroot@gmail.com
+    smarthost: smtp.gmail.com:587
+    auth_username: multroot@gmail.com
+    auth_identity: mulrtoot@gmail.com
+    auth_password: khafeeacliwgrtmp
+    send_resolved: true
