@@ -200,27 +200,27 @@ jobs:
       # we'll add some code to rollback on failure
       - destroy-environment
 
-  # configure-infrastructure:
-  #   docker:
-  #     - image: cimg/python:3.10
-  #   steps:
-  #     - checkout
-  #     - add_ssh_keys:
-  #         fingerprints: ["41:d6:55:0e:ea:d7:fc:c6:96:a2:61:e2:d1:16:b2:af"]
-  #     - attach_workspace:
-  #         at: ~/
-  #     - install_awscli
-  #     - install_nodejs
-  #     - install_ansible
+  configure-infrastructure:
+    docker:
+      - image: cimg/python:3.10
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["41:d6:55:0e:ea:d7:fc:c6:96:a2:61:e2:d1:16:b2:af"]
+      - attach_workspace:
+          at: ~/
+      - install_awscli
+      - install_nodejs
+      - install_ansible
 
-  #     - run:
-  #         name: configure server
-  #         command: |
-  #           cd .circleci/ansible
-  #           ansible-playbook -i inventory.txt configure-server.yml
-  #         no_output_timeout: 30m
+      - run:
+          name: configure server
+          command: |
+            cd .circleci/ansible
+            ansible-playbook -i inventory.txt configure-server.yml
+          no_output_timeout: 30m
 
-  #     - destroy-environment
+      - destroy-environment
 
   # run-migrations:
   #   docker:
@@ -454,8 +454,8 @@ workflows:
           requires: [build-backend]
       - deploy-infrastructure:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-      # - configure-infrastructure:
-      #     requires: [deploy-infrastructure]
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]
       # - deploy-frontend:
