@@ -13,5 +13,5 @@ scrape_configs:
 
   - job_name: 'udapeople'
     static_configs:
-      - targets: ['ec2-54-242-197-245.compute-1.amazonaws.com:9100']
+      - targets: ['ec2-52-91-101-187.compute-1.amazonaws.com:9100']
       
