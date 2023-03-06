@@ -234,13 +234,10 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm config delete proxy
-            npm config delete http-proxy
-            npm config delete https-proxy
-            npm install --no-audit --no-fund
+            npm install
+            # npm install --no-audit --no-fund
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
-          no_output_timeout: 30m
       - run:
           name: Send migration status to kvdb.io
           command: |
@@ -248,7 +245,6 @@ jobs:
             then
               curl https://kvdb.io/Mjdm6rkvNJCHFC6q57wwGm/migration_{CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
-          no_output_timeout: 30m  
 
       - revert-migrations
 
