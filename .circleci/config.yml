@@ -234,11 +234,10 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm install
-            # npm install --no-audit --no-fund
+            npm install --no-audit --no-fund
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
-    timeout: 1800
+          no_output_timeout: 30m
       - run:
           name: Send migration status to kvdb.io
           command: |
@@ -246,6 +245,7 @@ jobs:
             then
               curl https://kvdb.io/Mjdm6rkvNJCHFC6q57wwGm/migration_{CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
+    
 
       - revert-migrations
 
