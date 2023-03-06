@@ -234,6 +234,7 @@ jobs:
           name: Run migrations
           command: |
             cd backend
+            npm config delete proxy
             npm install --no-audit --no-fund
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
