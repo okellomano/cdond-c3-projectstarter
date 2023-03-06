@@ -199,7 +199,7 @@ jobs:
 
       # we'll add some code to rollback on failure
       - destroy-environment
-      - revert-migrations
+      # - revert-migrations
 
   configure-infrastructure:
     docker:
