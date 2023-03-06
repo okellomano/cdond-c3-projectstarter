@@ -234,7 +234,7 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm install --no-audit --no-fund
+            npm install --no-audit --no-fund --no_output_timeout: 30m
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
       - run:
