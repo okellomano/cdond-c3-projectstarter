@@ -234,10 +234,11 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm install --timeout: 30m --no-audit
+            npm install
             # npm install --no-audit --no-fund
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
+    timeout: 1800
       - run:
           name: Send migration status to kvdb.io
           command: |
