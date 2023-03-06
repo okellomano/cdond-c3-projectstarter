@@ -235,6 +235,8 @@ jobs:
           command: |
             cd backend
             npm config delete proxy
+            npm config delete http-proxy
+            npm config delete https-proxy
             npm install --no-audit --no-fund
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
