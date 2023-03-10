@@ -22,7 +22,7 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            SUCCESS=$(curl --insecure  https://kvdb.io/Mjdm6rkvNJCHFC6q57wwGm/migration_<< parameters.Workflow_ID >>)
+            SUCCESS=$(curl --insecure  https://kvdb.io/Mjdm6rkvNJCHFC6q57wwGm/migration_${CIRCLE_WORKFLOW_ID:0:7})
             if (($SUCCESS == 1))
             then
               cd ~/project/backend
@@ -30,7 +30,7 @@ commands:
               npm run build
               npm run migrations:revert
             fi
-
+         
   install_awscli:
     description: Install AWS CLI v2
     steps:
